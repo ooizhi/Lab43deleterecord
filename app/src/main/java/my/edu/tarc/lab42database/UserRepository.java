@@ -44,4 +44,22 @@ public class UserRepository {
             return null;
         }
     }
+
+    private static class deleteWordAsyncTask extends AsyncTask<User, Void, Void> {
+        private UserDao userDao;
+
+        deleteWordAsyncTask(UserDao dao) {
+            userDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final User... params) {
+            userDao.deleteUser(params[0]);
+            return null;
+        }
+    }
+    public void deleteWord(User user)  {
+        new deleteWordAsyncTask(userDao).execute(user);
+    }
+
 }
